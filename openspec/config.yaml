@@ -1,11 +1,11 @@
 schema: intent-driven-with-human-control
 stack: javascript
 
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
-#
+context: |
+  Tech stack: Bun 1.4.2, Elysia, `bun test`. Outer acceptance tests drive the real app in a
+  browser with Playwright. Everything else arrives in the step whose test needs it.
+  Domain: TodoMVC (https://github.com/tastejs/todomvc/blob/master/app-spec.md), one feature per step.
+
 #     Use senior-dev sub-agent for all src related work and senior-qa for acceptance tests.
 #     Do not optimize the batch the tasks for senior-dev and senior-qa, call them as many times as necessary in smaller batches as dev and qa work may be interleaved.
 
@@ -19,9 +19,9 @@ rules:
     # - Must use glossary skill
   adr:
     - Must use architectural-decision-records skill
-  specs:
+  specs: []
     # - Must use spec-as-source skill
-  tasks:
+  tasks: []
     # - Must use spec-as-source skill
 
 operations:
