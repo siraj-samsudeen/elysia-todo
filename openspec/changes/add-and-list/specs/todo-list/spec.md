@@ -32,7 +32,7 @@ running.
 #### Scenario: Reloading the page keeps the list
 - **GIVEN** I have added "Read the guide on routing"
 - **WHEN** I reload the page
-- **THEN** the list shows "Read the guide on routing"
+- **THEN** the list shows "Read the guide on routing" once
 
 ### Requirement: Trim the text
 The text of a new to-do SHALL be trimmed of leading and trailing whitespace before it is added.
