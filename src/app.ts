@@ -1,7 +1,5 @@
+import { html } from "@elysiajs/html";
 import { Elysia } from "elysia";
+import { TodoListPage } from "./todo-list-page";
 
-export const createApp = () =>
-  new Elysia().get(
-    "/",
-    () => new Response("<!doctype html>", { headers: { "content-type": "text/html; charset=utf-8" } }),
-  );
+export const createApp = () => new Elysia().use(html()).get("/", () => TodoListPage());
