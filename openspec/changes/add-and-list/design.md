@@ -78,7 +78,8 @@ and asks the person to fill in the field.
 - **Alternative — a module-level array:** shared by every test in the process; order-dependent tests.
 
 ### 5. The page as JSX in its own file, with `@elysiajs/html`
-The page is a component in its own file (`src/page.tsx`), rendered with the `@elysiajs/html` plugin.
+The page is a component in its own file (`src/todo-list-page.tsx`, named `TodoListPage` after what it
+shows), rendered with the `@elysiajs/html` plugin.
 The plugin and the `tsconfig` JSX settings arrive with the first test that renders the page.
 
 - **Why:** markup in its own file gets what a string loses — syntax highlighting, formatting,
@@ -93,7 +94,9 @@ The plugin and the `tsconfig` JSX settings arrive with the first test that rende
 The outer test starts `createApp().listen(0)` (port 0 = any free port), launches Chromium with the
 `playwright` library, and follows the "Done when" script. It finds elements the way a person does —
 the input by its placeholder "What needs to be done?" (TodoMVC's wording), to-dos as list items —
-not by CSS class. Inner tests use `app.handle(...)` and read the returned HTML.
+not by CSS class. Inner tests use `app.handle(...)` and read the returned HTML. They read it through linkedom's
+`parseHTML`, querying the page the way a browser does (`querySelector`, `getAttribute`), so checks
+don't depend on attribute order or extra markup.
 
 ```mermaid
 flowchart LR
