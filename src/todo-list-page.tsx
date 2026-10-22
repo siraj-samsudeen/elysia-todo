@@ -4,7 +4,7 @@ export const TodoListPage = () => (
   <html>
     <body>
       <form method="post" action="/todos">
-        <input name="title" />
+        <input name="title" placeholder="What needs to be done?" />
       </form>
       <ul></ul>
     </body>
