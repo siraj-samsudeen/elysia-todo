@@ -41,3 +41,34 @@ verify and archive — and reaches the trunk in **one PR** at the end. So, where
 - The trunk is the branch named in this file's project section (`main` if none is named). Working
   directly on the trunk is fine for a single person.
 - Approving a step is the user asking for its commit — do not ask again.
+
+## This repo
+
+`elysia-todo` is a learning trail: TodoMVC on Bun + Elysia, grown one step at a time, whose
+history is meant to be read. The trunk is `main`. Each attempt at a step runs on its own branch
+`step-NN-<name>/<person>/attempt-N` and reaches `main` in one PR, only if it is chosen as the reference.
+
+- **Fixed:** Bun 1.4.2, Elysia, `bun test`. **Everything else arrives in the step whose test needs
+  it.** The expected direction: server-rendered HTML first; raw `bun:sqlite`; Drizzle at the first
+  schema change; Postgres and React each as their own step.
+- **This repo runs in learning mode** (the `outside-in-tdd` skill): every command, read-only ones
+  included, is shown and explained before it runs, and runs only when the human says "run".
+- **Starting a step.** When the human says "start step N", read `steps/NN-*.md` and take its prompt
+  block, unchanged, as the request. Then set up the attempt branch in **one stop** — branch
+  handling is not the learning goal, so it gets one line of explanation, not a lesson:
+  - Person: the first name from `git config user.name`, lowercased; ask the human to confirm it or
+    give theirs in the same stop (if it is empty, just ask).
+  - Branch: `step-NN-<name>/<person>/attempt-K`, K = the next number not on `origin` for that
+    person and step. Base: `origin/main` for the newest step; for an earlier step, the commit
+    before that step's merge on `main`.
+  - Command: if the session is on a branch with no commits of its own (e.g. the app's
+    `claude/...` worktree branch), **rename it** (`git branch -m`) and reset it to the base;
+    if it is on `main`, create the branch from the base (`git switch -c`). Never switch to a branch
+    checked out in another folder.
+  - Then say which file and branch you are using in one line, and begin.
+- Do not edit `ATTEMPTS.md` during an attempt; its row is filled in on `main` afterwards.
+- Outer acceptance tests drive the real app in a browser with Playwright; a step's "Done when"
+  line is that test's script.
+- Build only the current step's feature. Later TodoMVC features are not planned ahead.
+- Cloud sessions set `BUN_OPTIONS=--smol`; run `bun init` as `env -u BUN_OPTIONS bun init -y .`
+  there (with it set, `bun init` writes into `./init/`).
