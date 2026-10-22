@@ -11,17 +11,21 @@ context: |
 
 rules:
   proposal:
-    - Must use grill-me skill
+    - Must use grill-me skill - one decision per question, showing the text it will write into the artifact (paraphrased is fine), with the alternatives
     # - Must use adversarial-authoring skill
     # - Must use glossary skill
   design:
+    - Must use grill-me skill - one decision per question, showing the text it will write into the artifact (paraphrased is fine), with the alternatives
     - Must use c4-diagrams skill - Mermaid, lightweight C4-inspired; do not ask
     # - Must use glossary skill
   adr:
+    - Must use grill-me skill - one decision per question, showing the text it will write into the artifact (paraphrased is fine), with the alternatives
     - Must use architectural-decision-records skill
-  specs: []
+  specs:
+    - Must use grill-me skill - one decision per question, showing the text it will write into the artifact (paraphrased is fine), with the alternatives
     # - Must use spec-as-source skill
-  tasks: []
+  tasks:
+    - Must use grill-me skill - one decision per question, showing the text it will write into the artifact (paraphrased is fine), with the alternatives
     # - Must use spec-as-source skill
 
 operations:
