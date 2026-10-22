@@ -19,3 +19,12 @@ test("1.3 the page's form posts to /todos with an input named title", async () =
   expect(form?.getAttribute("action")).toBe("/todos");
   expect(document.querySelector("form input")?.getAttribute("name")).toBe("title");
 });
+
+test("1.4 a new app's page lists no to-dos", async () => {
+  const response = await createApp().handle(new Request("http://localhost/"));
+  const html = await response.text();
+  const { document } = parseHTML(html);
+  const list = document.querySelector("ul");
+
+  expect(list?.children.length).toBe(0);
+});
