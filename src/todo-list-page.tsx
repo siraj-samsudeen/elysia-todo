@@ -6,6 +6,7 @@ export const TodoListPage = () => (
       <form method="post" action="/todos">
         <input name="title" />
       </form>
+      <ul></ul>
     </body>
   </html>
 );

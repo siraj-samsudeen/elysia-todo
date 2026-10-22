@@ -1,9 +1,9 @@
 ## 1. First open shows an empty list (@spec See the list)
 
 - [ ] 1.1 outer: opening a just-started app shows the "What needs to be done?" input and no to-dos
-- [ ] 1.2 inner: GET / answers with an HTML page
-- [ ] 1.3 inner: the page's form posts to /todos with an input named title
-- [ ] 1.4 inner: a new app's page lists no to-dos
+- [x] 1.2 inner: GET / answers with an HTML page
+- [x] 1.3 inner: the page's form posts to /todos with an input named title
+- [x] 1.4 inner: a new app's page lists no to-dos
 
 ## 2. Add the first to-do (@spec Add a to-do)
 
