@@ -94,9 +94,13 @@ The plugin and the `tsconfig` JSX settings arrive with the first test that rende
 The outer test starts `createApp().listen(0)` (port 0 = any free port), launches Chromium with the
 `playwright` library, and follows the "Done when" script. It finds elements the way a person does —
 the input by its placeholder "What needs to be done?" (TodoMVC's wording), to-dos as list items —
-not by CSS class. Inner tests use `app.handle(...)` and read the returned HTML. They read it through linkedom's
-`parseHTML`, querying the page the way a browser does (`querySelector`, `getAttribute`), so checks
-don't depend on attribute order or extra markup.
+not by CSS class. Both levels are written in the feather-testing-core DSL (0.7.0-beta.1): the outer
+test drives the browser with its Playwright adapter, `createSession(page, { baseUrl })`; inner tests
+use its request adapter, `createSession(createApp().handle)`, which sends requests to `app.handle`
+with no browser, parses each response (happy-dom) and follows forms and redirects as a browser would.
+The same chain of steps (`visit`, `assertValue`, `refuteHas`, …) reads the same at both levels. One
+difference shows up already: the browser judges visibility by layout (an empty `<ul>` is "hidden"),
+the request adapter by markup, so outer tests check "no list items" rather than "a list exists".
 
 ```mermaid
 flowchart LR
@@ -109,11 +113,8 @@ flowchart LR
   end
 ```
 
-`bun:test`'s `expect` checks once and does not retry, and every add reloads the page — so after each
-Enter the test waits for the reload before it checks the list, through one small helper. The page is
-already at `/` when the form posts, so `page.waitForURL("/")` would return at once and race the
-reload; the helper waits for the `GET /` response that follows the redirect, then for the page to
-finish loading. The server code lives in its own module (`src/app.ts`), not in a test file — Bun
+Waiting is the DSL's job: its assertions retry until their timeout, and `submit()` / `pressKey("Enter")`
+wait for the page a post redirects to — so no hand-written reload-wait helper is needed. The server code lives in its own module (`src/app.ts`), not in a test file — Bun
 leaves test files out of coverage.
 
 - **Why:** one runner and one process. Each test gets a fresh app from `createApp()` (decision 4);
