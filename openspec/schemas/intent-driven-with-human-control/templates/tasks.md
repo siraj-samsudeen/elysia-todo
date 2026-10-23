@@ -1,8 +1,8 @@
 ## 1. <!-- Scenario name --> (@spec <!-- requirement -->)
 
-- [ ] 1.1 outer: <!-- the scenario as an acceptance test -->
-- [ ] 1.2 inner: <!-- one behaviour the design needs -->
-- [ ] 1.3 inner: <!-- one behaviour the design needs -->
+- [ ] 1.0 outer: <!-- the scenario as an acceptance test; its name matches the test's name -->
+- [ ] 1.1 inner: <!-- one behaviour the design needs; its name matches the test's name -->
+- [ ] 1.2 inner: <!-- one behaviour the design needs; its name matches the test's name -->
 
 ## 2. Reconcile
 

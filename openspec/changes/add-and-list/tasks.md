@@ -1,9 +1,9 @@
 ## 1. Opening a fresh app shows the to-do input and an empty list (@spec See the list)
 
-- [x] 1.0 outer: opening a fresh app shows the "What needs to be done?" input and an empty list
-- [x] 1.1 inner: GET / answers with an HTML page
-- [x] 1.2 inner: the page shows an input for a new to-do ("What needs to be done?")
-- [x] 1.3 inner: a new app's page lists no to-dos
+- [x] 1.0 outer: Opening a fresh app shows the to-do input and an empty list
+- [x] 1.1 inner: lands on an HTML page
+- [x] 1.2 inner: shows an input for a new to-do
+- [x] 1.3 inner: shows an empty list
 
 ## 2. Add the first to-do (@spec Add a to-do)
 
