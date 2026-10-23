@@ -1,26 +1,22 @@
-import { beforeEach, describe, expect, test } from "bun:test";
-import { parseHTML } from "linkedom";
+import { describe, expect, test } from "bun:test";
+import { createSession } from "feather-testing-core/request";
 import { createApp } from "../src/app";
 
 describe("1.0 Opening a fresh app shows the to-do input and an empty list", () => {
-  let response: Response;
-  let document: Document;
+  const openFreshApp = () => createSession(createApp().handle).visit("/");
 
-  beforeEach(async () => {
-    response = await createApp().handle(new Request("http://localhost/"));
-    document = parseHTML(await response.clone().text()).document;
+  test("1.1 lands on an HTML page", async () => {
+    await openFreshApp().raw("the response is a 200 HTML page", ({ response }) => {
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toStartWith("text/html");
+    });
   });
 
-  test("1.1 lands on an HTML page", () => {
-    expect(response.status).toBe(200);
-    expect(response.headers.get("content-type")).toStartWith("text/html");
+  test("1.2 shows an input for a new to-do", async () => {
+    await openFreshApp().assertValue("What needs to be done?", "");
   });
 
-  test("1.2 shows an input for a new to-do", () => {
-    expect(document.querySelector("input")?.getAttribute("placeholder")).toBe("What needs to be done?");
-  });
-
-  test("1.3 shows an empty list", () => {
-    expect(document.querySelector("ul")?.children.length).toBe(0);
+  test("1.3 shows an empty list", async () => {
+    await openFreshApp().assertHas("ul").refuteHas("li");
   });
 });
