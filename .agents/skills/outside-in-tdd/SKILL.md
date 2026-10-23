@@ -97,8 +97,15 @@ of each test; this skill adds the stops and the record.
 Tests the task list already expects to pass on their first run are run together, one `test:`
 commit each, and reported in one message.
 
-The outer test of a scenario stays `test.todo` while its inner tests run; it is promoted in its
-own green step. `bun test --todo` fails with "Remove `.todo`" once it passes — that is the cue.
+**Outer and inner tests.** Every check in an outer test is driven by an inner test, or is marked
+in `tasks.md` as `(outer-only: <reason>)` — for what only a browser can show (that reload repeats
+the `GET`, that the input is empty after a post-redirect-get reload). So the inner tests completely
+break down the outer test, and promoting it is predicted to pass: a failure at promotion means
+wiring, never a forgotten behaviour — add the missing inner test as `(added)`.
+
+The outer test of a scenario stays `test.todo` while its inner tests run. Once they pass, it is
+promoted as a `test:` commit predicted to pass. `bun test --todo` fails with "Remove `.todo`" once
+it passes — that is the cue.
 
 **Step size.** If the human's predictions keep matching, the steps are too small — take bigger
 ones. If they keep missing, slow down.
