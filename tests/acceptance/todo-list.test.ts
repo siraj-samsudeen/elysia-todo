@@ -19,7 +19,7 @@ afterEach(async () => {
   await app.stop();
 });
 
-test("1.1 opening a just-started app shows the input and no to-dos", async () => {
+test("1.0 Opening a fresh app shows the to-do input and an empty list", async () => {
   await page.goto(baseUrl);
 
   expect(await page.getByPlaceholder("What needs to be done?").count()).toBe(1);

@@ -1,30 +1,26 @@
-import { expect, test } from "bun:test";
+import { beforeEach, describe, expect, test } from "bun:test";
 import { parseHTML } from "linkedom";
 import { createApp } from "../src/app";
 
-test("1.2 GET / answers with an HTML page", async () => {
-  const response = await createApp().handle(new Request("http://localhost/"));
+describe("1.0 Opening a fresh app shows the to-do input and an empty list", () => {
+  let response: Response;
+  let document: Document;
 
-  expect(response.status).toBe(200);
-  expect(response.headers.get("content-type")).toStartWith("text/html");
-});
+  beforeEach(async () => {
+    response = await createApp().handle(new Request("http://localhost/"));
+    document = parseHTML(await response.clone().text()).document;
+  });
 
-test("1.3 the page's form posts to /todos with an input named title", async () => {
-  const response = await createApp().handle(new Request("http://localhost/"));
-  const html = await response.text();
-  const { document } = parseHTML(html);
-  const form = document.querySelector("form");
+  test("1.1 lands on an HTML page", () => {
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toStartWith("text/html");
+  });
 
-  expect(form?.getAttribute("method")).toBe("post");
-  expect(form?.getAttribute("action")).toBe("/todos");
-  expect(document.querySelector("form input")?.getAttribute("name")).toBe("title");
-});
+  test("1.2 shows an input for a new to-do", () => {
+    expect(document.querySelector("input")?.getAttribute("placeholder")).toBe("What needs to be done?");
+  });
 
-test("1.4 a new app's page lists no to-dos", async () => {
-  const response = await createApp().handle(new Request("http://localhost/"));
-  const html = await response.text();
-  const { document } = parseHTML(html);
-  const list = document.querySelector("ul");
-
-  expect(list?.children.length).toBe(0);
+  test("1.3 shows an empty list", () => {
+    expect(document.querySelector("ul")?.children.length).toBe(0);
+  });
 });
