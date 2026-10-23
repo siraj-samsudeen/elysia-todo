@@ -3,7 +3,7 @@
 ### Requirement: See the list
 The app SHALL show a page with an input for a new to-do and the list of to-dos.
 
-#### Scenario: First open shows an empty list
+#### Scenario: Opening a fresh app shows the to-do input and an empty list
 - **GIVEN** the app has just started
 - **WHEN** I open the app
 - **THEN** I see the input for a new to-do
